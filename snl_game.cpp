@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include <string>
+#include <math.h>
 
 void unit(int x, int y);
 void draw_numbers();
@@ -10,13 +11,19 @@ void draw_grid();
 void render_ladders();
 void render_snakes();
 void render_board();
+void draw_player(float cx, float cy);
+void plot_player(int player_id, int position);
 
 void render_board()
 {
+	plot_player(0, 1);
+	plot_player(1, 1);
+
 	draw_grid();
 	render_ladders();
 	render_snakes();
 	draw_numbers();
+
 }
 
 void draw_grid()
@@ -154,4 +161,66 @@ void render_snakes()
 		glVertex2f(-0.85, -0.03); glVertex2f(-0.35, 0.04);
 		glVertex2f(-.25, -0.78); glVertex2f(0.25, -0.83);
 	glEnd();
+}
+
+void draw_player(float cx, float cy)
+{	
+	float r = 0.02;
+	int num_segments = 360;
+	glLineWidth(3);
+    glBegin(GL_LINE_LOOP);
+    for(int ii = 0; ii < num_segments; ii++)
+    {
+        float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments);//get the current angle
+
+        float x = r * cosf(theta);//calculate the x component
+        float y = r * sinf(theta);//calculate the y component
+
+        glVertex2f(x + cx, y + cy);//output vertex
+
+    }
+    glEnd();
+}
+
+void plot_player(int player_id, int position)
+{
+	double x, y, x_increment = 0.199, y_increment = 0.1625, x_pos, y_pos;
+	if(player_id)
+	{
+		glColor3f(1, 0.5, 0.5);
+		x = -0.85;
+		y = -0.915;
+	}
+	else
+	{
+		glColor3f(0, 0.5, 0.5);
+		x = -0.95;
+		y = -0.836;
+	}
+	int units_place = position%10;
+	int tens_place = position/10;
+
+
+	if((tens_place%2 == 0) && (units_place != 0))
+	{
+		x_pos = x+x_increment*(units_place-1);
+		y_pos = y+y_increment*tens_place;
+	}
+	else if((tens_place%2 != 0) && (units_place == 0))
+	{
+		x_pos = x+x_increment*9;
+		y_pos = y+y_increment*(tens_place-1);
+	}
+	else if(units_place != 0)
+	{
+		x_pos = x+x_increment*(10-(units_place));
+		y_pos = y+y_increment*tens_place;
+	}
+	else
+	{
+		x_pos = x;
+		y_pos = y+y_increment*(tens_place-1);
+	}
+	draw_player(x_pos, y_pos);
+
 }
