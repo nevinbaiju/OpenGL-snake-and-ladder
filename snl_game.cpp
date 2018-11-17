@@ -7,6 +7,7 @@ void draw_numbers();
 void display_message(const char *text, int length);
 void draw_text(const char *text, int length, double x, double y);
 void render_ladders();
+void render_snakes();
 
 void draw_grid()
 {
@@ -121,6 +122,7 @@ void draw_text(const char *text, int length, double x, double y)
 
 void render_ladders()
 {
+	glLineWidth(5.0);
 	glColor3f(0, 1, 0);
 	glBegin(GL_LINES);
 		glVertex2f(-.85, -.84); glVertex2f(-.56, -.4);
@@ -131,5 +133,21 @@ void render_ladders()
 		glVertex2f(0.85, 0); glVertex2f(.35, 0.05);
 		glVertex2f(0.73, 0.3); glVertex2f(.82, 0.55);
 		glVertex2f(-0.85, 0.31); glVertex2f(-.75, 0.55);
+	glEnd();
+}
+
+void render_snakes()
+{
+	glLineWidth(5.0);
+	glColor3f(1, 0, 0);
+	glBegin(GL_LINES);
+		glVertex2f(-0.65, 0.31); glVertex2f(-.55, 0.55);
+		glVertex2f(0.15, 0.31); glVertex2f(0.18, 0.55);
+		glVertex2f(0.55, 0.31); glVertex2f(0.63, 0.55);
+		glVertex2f(0.35, 0.37); glVertex2f(-0.05, -0.34);
+		glVertex2f(-0.65, 0.06); glVertex2f(-0.62, -0.68);
+		glVertex2f(0.25, -0.12); glVertex2f(0.25, -0.38);
+		glVertex2f(-0.85, -0.03); glVertex2f(-0.35, 0.04);
+		glVertex2f(-.25, -0.78); glVertex2f(0.25, -0.83);
 	glEnd();
 }

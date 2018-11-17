@@ -35,6 +35,7 @@ void display_callback()
 	std::string msg ("Welcome, press Enter to roll the dice");
 	display_message(msg.c_str(), msg.length());
 	render_ladders();
+	render_snakes();
 	draw_numbers();
 	glutSwapBuffers();
 }
