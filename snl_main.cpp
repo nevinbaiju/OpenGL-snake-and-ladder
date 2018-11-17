@@ -14,7 +14,7 @@ int main(int argc,char**argv)
 	glutInitWindowSize(550, 600);
 	glutCreateWindow("Snake and Ladder-OpenGL");
 	glutDisplayFunc(display_callback);
-	//glutReshapeFunc(reshape_callback);
+	glutReshapeFunc(reshape_callback);
 	//glutSpecialFunc(input_callback);
 	//glutTimerFunc(100,timer_callback,0);
 	init();
@@ -34,8 +34,8 @@ void display_callback()
 	draw_grid();
 	std::string msg ("Welcome, press Enter to roll the dice");
 	display_message(msg.c_str(), msg.length());
-	draw_numbers();
 	render_ladders();
+	draw_numbers();
 	glutSwapBuffers();
 }
 
