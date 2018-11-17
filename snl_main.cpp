@@ -34,7 +34,19 @@ void display_callback()
 	draw_grid();
 	std::string msg ("Welcome, press Enter to roll the dice");
 	display_message(msg.c_str(), msg.length());
+	draw_numbers();
 	glutSwapBuffers();
+}
+
+void render_text()
+{
+	for(int i=0; i<9; i++)
+	{
+		for(int j=0; j<9; j++)
+		{
+			std::cout<<"nothing";
+		}
+	}
 }
 
 void reshape_callback(int w, int h)
