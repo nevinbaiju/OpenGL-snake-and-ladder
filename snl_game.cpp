@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <math.h>
+#include <time.h>
+#include <stdlib.h>
 
 void unit(int x, int y);
 void draw_numbers();
@@ -13,17 +15,31 @@ void render_snakes();
 void render_board();
 void draw_player(float cx, float cy);
 void plot_player(int player_id, int position);
+int roll_dice();
+
+extern int player_1_position;
+extern int player_2_position;
+extern std::string msg;
 
 void render_board()
 {
-	plot_player(0, 1);
-	plot_player(1, 1);
-
 	draw_grid();
 	render_ladders();
 	render_snakes();
 	draw_numbers();
-
+	if(player_1_position ==100)
+	{
+		msg = "Player 1 victory";
+	}
+	else if((player_2_position ==100))
+	{
+		msg = "Player 2 victory";
+	}
+	else
+	{
+		plot_player(0, player_1_position);
+		plot_player(1, player_2_position);
+	}
 }
 
 void draw_grid()
@@ -223,4 +239,10 @@ void plot_player(int player_id, int position)
 	}
 	draw_player(x_pos, y_pos);
 
+}
+
+int roll_dice()
+{
+	srand(time(NULL));
+	return rand()%6+1;
 }
