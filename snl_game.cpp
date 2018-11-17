@@ -6,6 +6,7 @@ void unit(int x, int y);
 void draw_numbers();
 void display_message(const char *text, int length);
 void draw_text(const char *text, int length, double x, double y);
+void render_ladders();
 
 void draw_grid()
 {
@@ -27,7 +28,6 @@ void draw_grid()
 	        glVertex2f(x, 0.667); glVertex2f(x, -.96);
 	    glEnd();
 	}
-
 }
 
 void draw_numbers()
@@ -73,6 +73,7 @@ void draw_numbers()
 
 void display_message(const char *text, int length)
 {
+	glColor3f(1, 1, 1);
 	double x_pos = length/56.0;
 	glMatrixMode(GL_PROJECTION);
 	double *matrix = new double[16];
@@ -96,6 +97,7 @@ void display_message(const char *text, int length)
 
 void draw_text(const char *text, int length, double x, double y)
 {
+	glColor3f(1, 1, 1);
 	double x_pos = length/56.0;
 	glMatrixMode(GL_PROJECTION);
 	double *matrix = new double[16];
@@ -115,4 +117,19 @@ void draw_text(const char *text, int length, double x, double y)
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixd(matrix);
 	glMatrixMode(GL_MODELVIEW);
+}
+
+void render_ladders()
+{
+	glColor3f(0, 1, 0);
+	glBegin(GL_LINES);
+		glVertex2f(-.85, -.84); glVertex2f(-.56, -.4);
+		glVertex2f(-0.25, -.84); glVertex2f(.23, -.78);
+		glVertex2f(0.75, -.84); glVertex2f(.86, -.4);
+		glVertex2f(-0.85, -.5); glVertex2f(-.78, -.28);
+		glVertex2f(0.45, -.5); glVertex2f(-.23, .38);
+		glVertex2f(0.85, 0); glVertex2f(.35, 0.05);
+		glVertex2f(0.73, 0.3); glVertex2f(.82, 0.55);
+		glVertex2f(-0.85, 0.31); glVertex2f(-.75, 0.55);
+	glEnd();
 }
