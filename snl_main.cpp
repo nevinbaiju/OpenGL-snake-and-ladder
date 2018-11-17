@@ -31,12 +31,9 @@ void display_callback()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
-	draw_grid();
 	std::string msg ("Welcome, press Enter to roll the dice");
 	display_message(msg.c_str(), msg.length());
-	render_ladders();
-	render_snakes();
-	draw_numbers();
+	render_board();
 	glutSwapBuffers();
 }
 

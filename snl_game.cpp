@@ -6,8 +6,18 @@ void unit(int x, int y);
 void draw_numbers();
 void display_message(const char *text, int length);
 void draw_text(const char *text, int length, double x, double y);
+void draw_grid();
 void render_ladders();
 void render_snakes();
+void render_board();
+
+void render_board()
+{
+	draw_grid();
+	render_ladders();
+	render_snakes();
+	draw_numbers();
+}
 
 void draw_grid()
 {
@@ -43,13 +53,7 @@ void draw_numbers()
 		for(int j = 0; j<10; j++)
 		{
 			std::string text = std::to_string(num);
-			if(num < 10)
-				length = 1;
-			else if(num < 100)
-				length = 2;
-			else
-				length = 3;
-			draw_text(text.c_str(), 3, x, y);
+			draw_text(text.c_str(), text.length(), x, y);
 			x = x+0.2;
 			if(flag)
 				num = num+1;
