@@ -4,6 +4,7 @@
 #include <math.h>
 #include <time.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 void unit(int x, int y);
 void draw_numbers();
@@ -16,10 +17,14 @@ void render_board();
 void draw_player(float cx, float cy);
 void plot_player(int player_id, int position);
 int roll_dice();
+void update_piece();
 
 extern int player_1_position;
 extern int player_2_position;
 extern std::string msg;
+extern int turn;
+extern int dice_val;
+extern int rolling;
 
 void render_board()
 {
@@ -27,18 +32,21 @@ void render_board()
 	render_ladders();
 	render_snakes();
 	draw_numbers();
-	if(player_1_position ==100)
+	if(((player_1_position+dice_val)>100) && turn == 0)
 	{
-		msg = "Player 1 victory";
+		dice_val = 0;
 	}
-	else if((player_2_position ==100))
+	else if (((player_2_position+dice_val)>100) && turn)
 	{
-		msg = "Player 2 victory";
+		dice_val = 0;
+	}
+	else if((player_1_position == 100)|(player_2_position == 100))
+	{
+		msg = "Game over";
 	}
 	else
 	{
-		plot_player(0, player_1_position);
-		plot_player(1, player_2_position);
+		update_piece();
 	}
 }
 
@@ -177,6 +185,35 @@ void render_snakes()
 		glVertex2f(-0.85, -0.03); glVertex2f(-0.35, 0.04);
 		glVertex2f(-.25, -0.78); glVertex2f(0.25, -0.83);
 	glEnd();
+}
+
+void update_piece()
+{
+	if(dice_val>0)
+	{
+		if(turn)
+		{
+			player_2_position++;
+			dice_val--;
+			//usleep(500000);
+		}
+		else
+		{
+			player_1_position++;
+			dice_val--;
+			//usleep(500000);
+		}
+	}
+	else if(rolling == 0)
+	{
+		if(turn)
+			turn = 0;
+		else
+			turn = 1;
+		rolling = 1;
+	}
+	plot_player(0, player_1_position);
+	plot_player(1, player_2_position);
 }
 
 void draw_player(float cx, float cy)

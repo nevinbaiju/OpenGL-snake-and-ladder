@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include "snl_game.h"
+#include <unistd.h>
 
 void init();
 void display_callback();
@@ -13,6 +14,8 @@ std::string msg ("Player 1's turn: press right arrow to roll dice");
 int player_1_position = 0;
 int player_2_position = 0;
 int turn = 0;
+int dice_val;
+int rolling = 1;
 
 int main(int argc,char**argv)
 {
@@ -68,31 +71,15 @@ void reshape_callback(int w, int h)
 
 void input_callback(int key, int x, int y)
 {
-    if(key == GLUT_KEY_RIGHT)
-    {
-    	int dice_val = roll_dice();
-    	std::cout<<"Player "<< turn <<" has rolled a" << dice_val << '\n';
-    	if(turn)
-    	{
-    		if((player_1_position+dice_val) <= 100)
-    		{
-    			player_1_position = player_1_position+dice_val;
-    			turn = 0;
-    		}
-    	}
-		else
-		{
-			if((player_2_position+dice_val) <= 100)
-			{
-				player_2_position = player_2_position+dice_val;
-				turn = 1;
-			}
-		}
-    }
-    else
-    {
-    	std::cout<<"Pani paali\n";	
-    }
+	if(rolling)
+	{
+	    if(key == GLUT_KEY_RIGHT)
+	    {
+	    	dice_val = roll_dice();
+	    	std::cout<<"Player "<< turn <<" has rolled a" << dice_val << '\n';
+	    	rolling = 0;
+	    }
+	}
 }
 
 void timer_callback(int)
