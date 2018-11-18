@@ -1,7 +1,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include "snl_game.h"
-#include <unistd.h>
+#include <string>
 
 void init();
 void display_callback();
@@ -78,6 +78,7 @@ void input_callback(int key, int x, int y)
 	    {
 	    	dice_val = roll_dice();
 	    	std::cout<<"Player "<< turn <<" has rolled a" << dice_val << '\n';
+	    	msg = "Player "+std::to_string(turn+1)+" has rolled a "+std::to_string(dice_val);
 	    	rolling = 0;
 	    }
 	}

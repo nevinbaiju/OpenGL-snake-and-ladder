@@ -46,7 +46,7 @@ void render_board()
 	}
 	else if((player_1_position == 100)|(player_2_position == 100))
 	{
-		msg = "Game over";
+		msg = "Player "+std::to_string(turn+1)+" victory!!";
 	}
 	else
 	{
@@ -199,13 +199,13 @@ void update_piece()
 		{
 			player_2_position++;
 			dice_val--;
-			//usleep(500000);
+			usleep(500000);
 		}
 		else
 		{
 			player_1_position++;
 			dice_val--;
-			//usleep(500000);
+			usleep(500000);
 		}
 	}
 	else if(rolling == 0)
@@ -214,20 +214,32 @@ void update_piece()
 		{
 			turn = 0;
 			if(snakes[player_2_position])
+			{
+				usleep(500000);
 				player_2_position = snakes[player_2_position];
+				msg = "Player 2 gets swallowed by a Snake!!";
+			}
 			else if (ladders[player_2_position])
 			{
+				usleep(500000);
 				player_2_position = ladders[player_2_position];
+				msg = "Player 2 takes a ladder!!";
 			}
 		}
 		else
 		{
 			turn = 1;
 			if(snakes[player_1_position])
-				player_1_position = snakes[player_1_position];
-			else if (ladders[player_2_position])
 			{
+				usleep(500000);
+				player_1_position = snakes[player_1_position];
+				msg = "Player 1 gets swallowed by a Snake!!";
+			}
+			else if (ladders[player_1_position])
+			{
+				usleep(500000);
 				player_1_position = ladders[player_1_position];
+				msg = "Player 1 takes a ladder!!";
 			}
 		}
 		rolling = 1;
