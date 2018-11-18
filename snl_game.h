@@ -1,4 +1,4 @@
-#define GAME_H_INCLUDED
+//#define GAME_H_INCLUDED
 
 void initGrid(int,int);
 void display_message(const char *text, int length);

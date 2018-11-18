@@ -1,2 +1,2 @@
-g++ snl_main.cpp -lGL -lGLU -lglut snl_game.cpp
-./a.out
+g++ -o snake-and-ladder.out snl_main.cpp -lGL -lGLU -lglut snl_game.cpp
+./snake-and-ladder.out

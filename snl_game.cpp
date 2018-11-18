@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <bits/stdc++.h> 
 
 void unit(int x, int y);
 void draw_numbers();
@@ -35,7 +36,6 @@ void render_board()
 	draw_grid();
 	render_ladders();
 	render_snakes();
-	draw_numbers();
 	if(((player_1_position+dice_val)>100) && turn == 0)
 	{
 		dice_val = 0;
@@ -47,11 +47,15 @@ void render_board()
 	else if((player_1_position == 100)|(player_2_position == 100))
 	{
 		msg = "Player "+std::to_string(turn+1)+" victory!!";
+		rolling = 0;
+		system("canberra-gtk-play -f wav/victory.wav");
 	}
 	else
 	{
 		update_piece();
 	}
+
+	draw_numbers();
 }
 
 void draw_grid()
@@ -124,7 +128,7 @@ void display_message(const char *text, int length)
 	glLoadIdentity();
 	glPushMatrix();
 	glLoadIdentity();
-	glRasterPos2f(-x_pos, .9);
+	glRasterPos2f(-x_pos, .8);
 	for(int i=0; i<length; i++)
 	{
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, (int)text[i]);
@@ -199,13 +203,15 @@ void update_piece()
 		{
 			player_2_position++;
 			dice_val--;
-			usleep(500000);
+			usleep(20000);
+			system("canberra-gtk-play -f wav/tap.wav");
 		}
 		else
 		{
 			player_1_position++;
 			dice_val--;
-			usleep(500000);
+			usleep(20000);
+			system("canberra-gtk-play -f wav/tap.wav");
 		}
 	}
 	else if(rolling == 0)
@@ -215,13 +221,15 @@ void update_piece()
 			turn = 0;
 			if(snakes[player_2_position])
 			{
-				usleep(500000);
+				system("canberra-gtk-play -f wav/snake.wav");
+				//usleep(500000);
 				player_2_position = snakes[player_2_position];
 				msg = "Player 2 gets swallowed by a Snake!!";
 			}
 			else if (ladders[player_2_position])
 			{
-				usleep(500000);
+				system("canberra-gtk-play -f wav/ladder.wav");
+				//usleep(500000);
 				player_2_position = ladders[player_2_position];
 				msg = "Player 2 takes a ladder!!";
 			}
@@ -231,13 +239,15 @@ void update_piece()
 			turn = 1;
 			if(snakes[player_1_position])
 			{
-				usleep(500000);
+				//usleep(500000);
+				system("canberra-gtk-play -f wav/snake.wav");
 				player_1_position = snakes[player_1_position];
 				msg = "Player 1 gets swallowed by a Snake!!";
 			}
 			else if (ladders[player_1_position])
 			{
-				usleep(500000);
+				//usleep(500000);
+				system("canberra-gtk-play -f wav/ladder.wav");
 				player_1_position = ladders[player_1_position];
 				msg = "Player 1 takes a ladder!!";
 			}

@@ -2,6 +2,7 @@
 #include <iostream>
 #include "snl_game.h"
 #include <string>
+#include <bits/stdc++.h> 
 
 void init();
 void display_callback();
@@ -76,8 +77,9 @@ void input_callback(int key, int x, int y)
 	{
 	    if(key == GLUT_KEY_RIGHT)
 	    {
+			system("canberra-gtk-play -f wav/twitch.wav");
 	    	dice_val = roll_dice();
-	    	std::cout<<"Player "<< turn <<" has rolled a" << dice_val << '\n';
+	    	//std::cout<<"Player "<< turn <<" has rolled a" << dice_val << '\n';
 	    	msg = "Player "+std::to_string(turn+1)+" has rolled a "+std::to_string(dice_val);
 	    	rolling = 0;
 	    }
