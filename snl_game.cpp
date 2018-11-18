@@ -18,6 +18,7 @@ void draw_player(float cx, float cy);
 void plot_player(int player_id, int position);
 int roll_dice();
 void update_piece();
+void init_snakes_ladders();
 
 extern int player_1_position;
 extern int player_2_position;
@@ -25,6 +26,9 @@ extern std::string msg;
 extern int turn;
 extern int dice_val;
 extern int rolling;
+
+int * snakes;
+int * ladders;
 
 void render_board()
 {
@@ -207,9 +211,25 @@ void update_piece()
 	else if(rolling == 0)
 	{
 		if(turn)
+		{
 			turn = 0;
+			if(snakes[player_2_position])
+				player_2_position = snakes[player_2_position];
+			else if (ladders[player_2_position])
+			{
+				player_2_position = ladders[player_2_position];
+			}
+		}
 		else
+		{
 			turn = 1;
+			if(snakes[player_1_position])
+				player_1_position = snakes[player_1_position];
+			else if (ladders[player_2_position])
+			{
+				player_1_position = ladders[player_1_position];
+			}
+		}
 		rolling = 1;
 	}
 	plot_player(0, player_1_position);
@@ -282,4 +302,28 @@ int roll_dice()
 {
 	srand(time(NULL));
 	return rand()%6+1;
+}
+
+void init_snakes_ladders()
+{
+	snakes = new int[100];
+	ladders = new int[100];
+
+	ladders[1] = 38;
+	ladders[4] = 14;
+	ladders[9] = 31;
+	ladders[21] = 42;
+	ladders[28] = 84;
+	ladders[51] = 67;
+	ladders[72] = 91;
+	ladders[80] = 99;
+
+	snakes[17] = 7;
+	snakes[54] = 34;
+	snakes[62] = 19;
+	snakes[64] = 60;
+	snakes[87] = 36;
+	snakes[92] = 73;
+	snakes[95] = 75;
+	snakes[98] = 79;
 }

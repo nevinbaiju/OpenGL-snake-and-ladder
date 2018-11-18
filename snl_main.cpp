@@ -17,8 +17,9 @@ int turn = 0;
 int dice_val;
 int rolling = 1;
 
-int main(int argc,char**argv)
+int main(int argc, char**argv)
 {
+	init_snakes_ladders();
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB);
 	glutInitWindowPosition(10,10);
