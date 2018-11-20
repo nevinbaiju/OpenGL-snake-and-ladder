@@ -17,6 +17,7 @@ int player_2_position = 0;
 int turn = 0;
 int dice_val;
 int rolling = 1;
+int victory = 0;
 
 int main(int argc, char**argv)
 {
@@ -75,6 +76,8 @@ void input_callback(int key, int x, int y)
 {
 	if(rolling)
 	{
+		if(victory)
+			exit(0);
 	    if(key == GLUT_KEY_RIGHT)
 	    {
 			system("canberra-gtk-play -f wav/twitch.wav");

@@ -7,7 +7,6 @@
 #include <unistd.h>
 #include <bits/stdc++.h> 
 
-void unit(int x, int y);
 void draw_numbers();
 void display_message(const char *text, int length);
 void draw_text(const char *text, int length, double x, double y);
@@ -27,6 +26,7 @@ extern std::string msg;
 extern int turn;
 extern int dice_val;
 extern int rolling;
+extern int victory;
 
 int * snakes;
 int * ladders;
@@ -44,11 +44,12 @@ void render_board()
 	{
 		dice_val = 0;
 	}
-	else if((player_1_position == 100)|(player_2_position == 100))
+	else if(((player_1_position == 100)|(player_2_position == 100) && !victory))
 	{
 		msg = "Player "+std::to_string(turn+1)+" victory!!";
 		rolling = 0;
 		system("canberra-gtk-play -f wav/victory.wav");
+		victory = 1;
 	}
 	else
 	{
